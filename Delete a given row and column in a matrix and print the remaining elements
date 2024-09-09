@@ -1,0 +1,57 @@
+Question: given a 2d matrix, get the elements , given the row and column to be deleted , delete and print the remaining elements which were not deleted.
+
+import java.util.Scanner;
+
+class Main {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        // Get the dimensions of the matrix
+        System.out.print("Enter the number of rows: ");
+        int rows = input.nextInt();
+        System.out.print("Enter the number of columns: ");
+        int cols = input.nextInt();
+
+        // Create the matrix
+        int[][] matrix = new int[rows][cols];
+        System.out.println("Enter the elements of the matrix:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                matrix[i][j] = input.nextInt();
+            }
+        }
+
+        // Get the row and column to delete
+        System.out.print("Enter the row to delete (0-based index): ");
+        int delRow = input.nextInt();
+        System.out.print("Enter the column to delete (0-based index): ");
+        int delCol = input.nextInt();
+
+        // Create a new matrix to hold the remaining elements
+        int[][] newMatrix = new int[rows - 1][cols - 1];
+        int newRow = 0, newCol;
+
+        for (int i = 0; i < rows; i++) {
+            if (i == delRow) continue; // Skip the deleted row
+            newCol = 0;
+            for (int j = 0; j < cols; j++) {
+                if (j == delCol) continue; // Skip the deleted column
+                newMatrix[newRow][newCol] = matrix[i][j];
+                newCol++;
+            }
+            newRow++;
+        }
+
+        // Print the new matrix
+        System.out.println("The matrix after deleting row " + delRow + " and column " + delCol + ":");
+        for (int i = 0; i < rows - 1; i++) {
+            for (int j = 0; j < cols - 1; j++) {
+                System.out.print(newMatrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        input.close();
+    }
+}
