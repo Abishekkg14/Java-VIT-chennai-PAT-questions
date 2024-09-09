@@ -1,0 +1,66 @@
+
+Question: Find the saddle point in a matrix 
+
+import java.util.Scanner;
+
+class Main {
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        // Get the dimensions of the matrix
+        System.out.print("Enter the number of rows: ");
+        int rows = input.nextInt();
+        System.out.print("Enter the number of columns: ");
+        int cols = input.nextInt();
+
+        int[][] matrix = new int[rows][cols];
+
+        // Input the elements of the matrix
+        System.out.println("Enter the elements of the matrix:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                matrix[i][j] = input.nextInt();
+            }
+        }
+
+        boolean saddlePointFound = false;
+
+        // Iterate over each row to find the saddle point
+        for (int i = 0; i < rows; i++) {
+            int minElement = matrix[i][0];
+            int minIndex = 0;
+
+            // Find the minimum element in the current row
+            for (int j = 1; j < cols; j++) {
+                if (matrix[i][j] < minElement) {
+                    minElement = matrix[i][j];
+                    minIndex = j;
+                }
+            }
+
+            // Check if the minimum element is the largest in its column
+            boolean isLargestInCol = true;
+            for (int k = 0; k < rows; k++) {
+                if (matrix[k][minIndex] > minElement) {
+                    isLargestInCol = false;
+                    break;
+                }
+            }
+
+            // If a saddle point is found, print it and break the loop
+            if (isLargestInCol) {
+                saddlePointFound = true;
+                System.out.println("Saddle Point found: " + minElement);
+                break;
+            }
+        }
+
+        // If no saddle point is found, print "No Saddle Point"
+        if (!saddlePointFound) {
+            System.out.println("No Saddle Point found");
+        }
+
+        input.close();
+    }
+}
